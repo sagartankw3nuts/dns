@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "7dce86e8-e90f-4bdb-83c4-f3c43942ec58",
+		"name": "dnsv2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add dns",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1fbd4af17807687ffaf81dcc34fc1645a355951002f7e7738e7fdd021ba09968",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "domain",
+							"value": "podup.com",
+							"type": "default"
+						},
+						{
+							"key": "host",
+							"value": "host",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9000/api/domain-store/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"domain-store",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
