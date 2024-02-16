@@ -1,0 +1,299 @@
+{% extends 'backend/base.html' %}
+{%load static %}
+{% block content %}
+
+<div class="main_wraps">
+    <div class="billing_main">
+        <div class="breadcrumb_main">
+            <ul>
+                <li>
+                    <a href="#">home</a>
+                </li>
+                <li>Billing</li>
+            </ul>
+        </div>
+        <div class="page_title">
+            <h2>Billing</h2>
+        </div>
+        <div class="plan_block">
+            <span class="current">Current Plan</span>
+            <div class="plan_info">
+                <h6>Entri Connect Platform Fee - Startup Plan, Entri Connect Usage Fee, and Entri Secure Usage Fee</h6>
+                <h3>Price varies with usage</h3>
+                <p>Your plan renews on February 20, 2024.</p>
+            </div>
+            <div class="cta_wrap">
+                <div class="info_text">
+                    <p>Your next estimated payment will be $263.75</p>
+                    <i>
+                        <img src="{% static 'backend/images/info-icon.svg' %}" alt="image">
+                        <div class="modal_info_blk">
+                            <div class="modal_info_blk_inner">
+                                <div class="modal_info_title">
+                                    <h6>February 20 - March 20, 2024</h6>
+                                </div>
+                                <div class="modal_info_wrap">
+                                    <div class="modal_info_row">
+                                        <div class="modal_info_disc">Entri connect platform fee startup plan</div>
+                                        <div class="modal_info_price">$249.00</div>
+                                    </div>
+                                    <div class="modal_info_row">
+                                        <div class="modal_info_disc">Entri connect usage fee</div>
+                                        <div class="modal_info_price">$00.00</div>
+                                    </div>
+                                    <div class="modal_info_row">
+                                        <div class="modal_info_disc">Entri secure usage fee (Qty: 59) <p>(Qty: 59)</p></div>
+                                        <div class="modal_info_price">$14.75 <p>$0.25 each</p></div>
+                                    </div>
+                                    <div class="modal_info_row modal_info_row_total">
+                                        <div class="modal_info_disc">Total</div>
+                                        <div class="modal_info_price">$263.75</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </i>
+                </div>
+                <div class="w3n_btn_box">
+                    <a href="#" class="white_btn">Cancel Plan</a>
+                </div>
+            </div>
+        </div>
+        <div class="seprator"></div>
+        <div class="payment_wrap">
+            <div class="row">
+                <div class="col-xl-6 col-md-12">
+                    <div class="payment_box">
+                        <h3>Payment Method</h3>
+                        <div class="card_info">
+                            <div class="imgbox"><img src="{% static 'backend/images/master-card.png' %}" alt="image"></div>
+                            <div class="card_text">
+                                <p>****  ****  ****  1234</p>
+                                <div class="expiry">
+                                    <p>Expires on : <strong>10/2025</strong></p>
+                                    <span>Default</span>
+                                </div>
+                            </div>
+                            <a href="#" class="edit-btn">
+                                <i><img src="{% static 'backend/images/edit-icon.svg' %}" alt="image"></i>
+                                <span>Edit</span>
+                            </a>
+                        </div>
+                        <div class="seprator"></div>
+                        <div class="card_info">
+                            <div class="imgbox"><img src="{% static 'backend/images/visa-card.png' %}" alt="image"></div>
+                            <div class="card_text">
+                                <p>****  ****  ****  1234</p>
+                                <div class="expiry">
+                                    <p>Expires on : <strong>10/2025</strong></p>
+                                </div>
+                            </div>
+                            <a href="#" class="edit-btn">
+                                <i><img src="{% static 'backend/images/edit-icon.svg' %}" alt="image"></i>
+                                <span>Edit</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="btnbox">
+                        <a href="#" class="cta-btn" data-bs-toggle="modal" data-bs-target="#addcardmodal">
+                            <i><img src="{% static 'backend/images/plus-icon.svg' %}" alt="image"></i>
+                            <span>Add new card</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="payment_box">
+                        <h3>Billing Information</h3>
+                        <div class="info_wrap">
+                            <div class="text_wrap">
+                                <label>Email Address</label>
+                                <p>kk@showplatform.com</p>
+                            </div>
+                            <div class="text_wrap">
+                                <label>Billing Address</label>
+                                <p>Oak Avenue, Okeechobee, FL 34974</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btnbox">
+                        <a href="#" class="cta-btn">
+                            <i><img src="{% static 'backend/images/edit-icon.svg' %}" alt="image"></i>
+                            <span>Update Information</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="seprator"></div>
+        <div class="invoice_block">
+            <h3>Invoice History</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="heading">
+                                    <a href="#">
+                                        <span>Entri Connect Usage Fee, Entri Secure Usage Fee</span>
+                                        <i><img src="{% static 'backend/images/view-icon.svg' %}" alt="image"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td><p>January 20, 2023</p></td>
+                            <td><p>$252.00</p></td>
+                            <td>
+                                <div class="status paid">
+                                    <span>Paid</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="download">
+                                    <a href="#">
+                                        <i><img src="{% static 'backend/images/download-icon.svg' %}" alt="image"></i>
+                                        <span>Download Invoice</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="heading">
+                                    <a href="#">
+                                        <span>Entri Connect Usage Fee, Entri Secure Usage Fee</span>
+                                        <i><img src="{% static 'backend/images/view-icon.svg' %}" alt="image"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td><p>January 20, 2023</p></td>
+                            <td><p>$252.00</p></td>
+                            <td>
+                                <div class="status paid">
+                                    <span>Paid</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="download">
+                                    <a href="#">
+                                        <i><img src="{% static 'backend/images/download-icon.svg' %}" alt="image"></i>
+                                        <span>Download Invoice</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="heading">
+                                    <a href="#">
+                                        <span>Entri Connect Usage Fee, Entri Secure Usage Fee</span>
+                                        <i><img src="{% static 'backend/images/view-icon.svg' %}" alt="image"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td><p>January 20, 2023</p></td>
+                            <td><p>$252.00</p></td>
+                            <td>
+                                <div class="status paid">
+                                    <span>Paid</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="download">
+                                    <a href="#">
+                                        <i><img src="{% static 'backend/images/download-icon.svg' %}" alt="image"></i>
+                                        <span>Download Invoice</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="heading">
+                                    <a href="#">
+                                        <span>Entri Connect Usage Fee, Entri Secure Usage Fee</span>
+                                        <i><img src="{% static 'backend/images/view-icon.svg' %}" alt="image"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td><p>January 20, 2023</p></td>
+                            <td><p>$252.00</p></td>
+                            <td>
+                                <div class="status paid">
+                                    <span>Paid</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="download">
+                                    <a href="#">
+                                        <i><img src="{% static 'backend/images/download-icon.svg' %}" alt="image"></i>
+                                        <span>Download Invoice</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="heading">
+                                    <a href="#">
+                                        <span>Entri Connect Usage Fee, Entri Secure Usage Fee</span>
+                                        <i><img src="{% static 'backend/images/view-icon.svg' %}" alt="image"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td><p>January 20, 2023</p></td>
+                            <td><p>$252.00</p></td>
+                            <td>
+                                <div class="status paid">
+                                    <span>Paid</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="download">
+                                    <a href="#">
+                                        <i><img src="{% static 'backend/images/download-icon.svg' %}" alt="image"></i>
+                                        <span>Download Invoice</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="heading">
+                                    <a href="#">
+                                        <span>Entri Connect Usage Fee, Entri Secure Usage Fee</span>
+                                        <i><img src="{% static 'backend/images/view-icon.svg' %}" alt="image"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td><p>January 20, 2023</p></td>
+                            <td><p>$252.00</p></td>
+                            <td>
+                                <div class="status paid">
+                                    <span>Paid</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="download">
+                                    <a href="#">
+                                        <i><img src="{% static 'backend/images/download-icon.svg' %}" alt="image"></i>
+                                        <span>Download Invoice</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                <ul class="pagination">
+                    <li class="paginate_button page-item previous disabled" id="example_previous"><a aria-controls="example" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">Previous</a></li>
+                    <li class="paginate_button page-item active"><a href="#" aria-controls="example" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
+                    <li class="paginate_button page-item"><a href="#" aria-controls="example" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
+                    <li class="paginate_button page-item next" id="example_next"><a href="#" aria-controls="example" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'backend/partials/_all_modal.html' %}
+{% endblock content %}

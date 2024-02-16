@@ -1,0 +1,103 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon"/>
+		<title>DNSDAD {% block title %} {% endblock %}</title>
+		<!--Stylesheet-->
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static 'fonts/fonts.css' %}" rel="stylesheet">
+		<link href="{% static 'css/slick.css' %}" rel="stylesheet">
+		<link href="{% static 'css/style.css' %}" rel="stylesheet">
+		<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+		<!--Stylesheet-->
+	</head>
+  <body>
+		<div class="main-wapper">
+
+      <!--Header : start-->
+			<header id="header">
+				<div class="container">
+					<div class="header_inner flxrow">
+						<div class="logo">
+							<a href="/">
+								<img src="{% static 'images/logo.svg' %}" alt="dnsdad">
+							</a>
+						</div>
+						<nav class="navigation_main">
+							<ul class="main-menu">
+								<li><a href="/">Home</a></li>
+								<li><a href="javascript:;">Product</a></li>
+								<li><a href="javascript:;">Feature</a></li>
+								<li><a href="javascript:;">Solutions</a></li>
+								<li><a href="javascript:;">Pricing</a></li>
+								<li><a href="javascript:;">Blog</a></li>
+                {%  if request.user.is_authenticated  %}
+								<li><a href="{% url 'dashboard' %}">dashboard</a></li>
+                {% endif %}
+								<li><a href="javascript:;">Help</a></li>
+							</ul>
+						</nav>
+						<div class="head_right">
+              {%  if request.user.is_authenticated == False %}
+                <a href="{% url 'sign_in' %}">Login </a> &nbsp;
+                <a href="{% url 'sign_up' %}">Register</a>
+              {% endif %}
+              {%  if request.user.is_authenticated  %}
+                <a href="{% url 'logout' %}">Logout </a> &nbsp;
+                <a href="javascript:;">Hy, {{ request.user.username }}</a>
+              {% endif %}
+						</div>
+					</div>
+				</div>
+			</header>
+			<!--Header : End-->
+
+      {%block content%} 
+      {%endblock content%}
+
+    <!--Footer : start-->
+    <footer id="footer">
+      <div class="container">
+        <div class="footer_inner">
+          <div class="f_logo">
+            <a href="javascript:;"><img src="{% static 'images/w3dart-logo.svg' %}" alt="dnsdad"></a>
+          </div>
+          <div class="f_bottom">
+            <div class="f_copyright"><p>Copyright © 2023 w3nuts technologies. All rights reserved.</p></div>
+            <div class="f_link_blk">
+              <ul class="f_link">
+                <li><a href="javascript:;">Privacy Policy</a></li>
+                <li><a href="javascript:;">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--Footer : End-->
+  </div>
+  
+  {% csrf_token %}
+  <!--JavaScript-->
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  
+  <script>
+    $.ajaxSetup({
+      headers: {
+          'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()
+      }
+  });
+  </script>
+
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/slick.min.js' %}"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/domainconnectapi.js' %}"></script>
+  <!--JavaScript-->
+</body>
+</html>

@@ -1,0 +1,463 @@
+
+{% extends 'backend/base.html' %}
+{%load static %}
+{% block content %}
+
+<div class="main_wraps main_dashboard">
+    <!-- Dashboard Title Box Start -->
+    <div class="main_dashboard_top">
+        <div class="main_dashboard_left">
+            <p>Hi James! Good Morning</p>
+            <h1>Dashboard</h1>
+        </div>
+        <div class="main_dashboard_right">
+            <div class="w3n_btn_box">
+                <a href="javascript:;" class="w3n_btn" id="evt_app_modal">Add Application</a>
+            </div>
+        </div>
+    </div>
+    <!-- Dashboard Title Box End -->
+    <div class="app_option_bar">
+        <h6>Applications</h6>
+        <div class="option_wrap">
+            <div class="app_sel">
+                <label>Select Applications :</label>
+                <select name="all_app_credentials" id="evt_all_app_credentials">
+                    {% for credential in app_credentials %}
+                        <option data-key="{{ credential.client_id }}"
+                        {% if credential.app_image %}
+                            data-image="{{ credential.app_image }}"
+                        {% else %}
+                            data-image="{% static 'backend/images/file.png' %}"
+                        {% endif %}
+                        data-secret="{{ credential.client_secret }}" data-webhook="{{ credential.redirect_uris }}" value={{ credential.id }}>{{ credential.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="app_id">
+                <label>Application ID :</label>
+                <div class="input-group">
+                    <input class="input-text" id="shw_app_key"  readonly>
+                    <button class="copy-btn" type="button">copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Counter Section Start -->
+    <div class="counting_wrap">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="counter_box">
+                    <div class="counter_number">450</div>
+                    <p>Configured today</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="counter_box">
+                    <div class="counter_number">1,400</div>
+                    <p>Configured per week</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="counter_box">
+                    <div class="counter_number">17,245</div>
+                    <p>Configured per month</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Counter Section End -->
+    <!-- Chart Section Start -->
+    <div class="chart_sec">
+        <div class="chart_wrap">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="chart_box">
+                        <div class="chart_heading">
+                            <h6>Billable Domain Connections
+                                <i data-toggle="tooltip" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+                                    <img src="{% static 'backend/images/tooltip-icon.svg' %}" alt="">
+                                </i>
+                            </h6>
+                        </div>
+                        <div class="chart_image">
+                            <img src="{% static 'backend/images/chart-image-1.svg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="chart_box">
+                        <div class="chart_heading">
+                            <h6>Flow Type
+                                <i data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom 2">
+                                    <img src="{% static 'backend/images/tooltip-icon.svg' %}" alt="">
+                                </i>
+                            </h6>
+                        </div>
+                        <div class="chart_image">
+                            <img src="{% static 'backend/images/chart-image-2.svg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="chart_box">
+                        <div class="chart_heading">
+                            <h6>Provider</h6>
+                        </div>
+                        <div class="chart_image">
+                            <img src="{% static 'backend/images/chart-image-3.svg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="chart_box">
+                        <div class="chart_heading">
+                            <h6>Domain Secured</h6>
+                        </div>
+                        <div class="chart_image">
+                            <img src="{% static 'backend/images/chart-image-4.svg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Chart Section End -->
+    <!-- Domain Section Start -->
+    <div class="domain_sec">
+        <div class="domain_inner">
+            <h6>All Domains</h6>
+        </div>
+        <div class="domain_wrap">
+            <div class="table_wrap">
+                <div class="table_more_filter">
+                    <div class="table_more_filter_inner">
+                        <div class="table_more_filter_export">
+                            <a href="#">
+                                <i>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.7 11.3L18.44 5.55999M19.0001 8.36012V5.00012H15.6401M11.3 5.00012H9.9C6.4 5.00012 5 6.40012 5 9.90012V14.1001C5 17.6001 6.4 19.0001 9.9 19.0001H14.1C17.6 19.0001 19 17.6001 19 14.1001V12.7001" stroke="currentcolor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </i>
+                                Export CSV
+                            </a>
+                        </div>
+                        <div class="table_more_filter_filters">
+                            <label for="">Filter :</label>
+                            <select name="" id="">
+                                <option value="All">All</option>
+                                <option value="All2">All2</option>
+                                <option value="All3">All3</option>
+                                <option value="All4">All4</option>
+                                <option value="All5">Completion Time</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <table id="example" class="table table-striped nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="domain_name">Domain</th>
+                            <th class="provider_name">Provider</th>
+                            <th class="connection_name">Connection</th>
+                            <th class="completion_time_name">Completion Time</th>
+                            <th class="status_data">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Google-Domains</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">0s</td>
+                            <td class="status_data">
+                                <div class="status_box danger-box">Manual Config</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Godaddy</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">267s</td>
+                            <td class="status_data">
+                                <div class="status_box sucess-box">Success</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Unknown</td>
+                            <td class="connection_name">
+                                <div class="connection_top">SwqA9c3DCYcCGJw=</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">10s</td>
+                            <td class="status_data">
+                                <div class="status_box warning-box">Connection Closed</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Google-Domains</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">0s</td>
+                            <td class="status_data">
+                                <div class="status_box danger-box">Manual Config</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Google-Domains</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">0s</td>
+                            <td class="status_data">
+                                <div class="status_box sucess-box">Success</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Unknown</td>
+                            <td class="connection_name">
+                                <div class="connection_top">SwqA9c3DCYcCGJw=</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">10s</td>
+                            <td class="status_data">
+                                <div class="status_box warning-box">Connection Closed</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Unknown</td>
+                            <td class="connection_name">
+                                <div class="connection_top">SwqA9c3DCYcCGJw=</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">10s</td>
+                            <td class="status_data">
+                                <div class="status_box warning-box">Connection Closed</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Google-Domains</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">0s</td>
+                            <td class="status_data">
+                                <div class="status_box danger-box">Manual Config</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Unknown</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">10s</td>
+                            <td class="status_data">
+                                <div class="status_box sucess-box">Success</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Unknown</td>
+                            <td class="connection_name">
+                                <div class="connection_top">SwqA9c3DCYcCGJw=</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">10s</td>
+                            <td class="status_data">
+                                <div class="status_box warning-box">Connection Closed</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Google-Domains</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">0s</td>
+                            <td class="status_data">
+                                <div class="status_box danger-box">Manual Config</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Godaddy</td>
+                            <td class="connection_name">
+                                <div class="connection_top">N/A</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">267s</td>
+                            <td class="status_data">
+                                <div class="status_box sucess-box">Success</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="domain_name">
+                                <div class="box_table_domain">
+                                    <div class="box_table_image_domain">
+                                        <img src="{% static 'backend/images/balnk-img-box.svg' %}" alt="">
+                                    </div>
+                                    <div class="box_table_dtl_domain">
+                                        <div class="box_table_link_domain">w3nutsdeveloper.co</div>
+                                        <div class="box_table_slogna_domain">W3nuts</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="provider_name">Unknown</td>
+                            <td class="connection_name">
+                                <div class="connection_top">SwqA9c3DCYcCGJw=</div>
+                                <div class="connection_date">2024-02-08</div>
+                            </td>
+                            <td class="completion_time_name">10s</td>
+                            <td class="status_data">
+                                <div class="status_box warning-box">Connection Closed</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Domain Section End -->
+</div>
+
+{% include 'backend/partials/_all_modal.html' %}
+{% endblock content %}

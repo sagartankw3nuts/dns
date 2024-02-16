@@ -1,0 +1,126 @@
+
+{% extends 'backend/base.html' %}
+{%load static %}
+{% block content %}
+
+<div class="main_wraps">
+    <div class="app_settings">
+        <form name="app_profile_form" id="app_profile_form" method="post" action="{% url 'app.fileupload' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="breadcrumb_main">
+            <ul>
+                <li>
+                    <a href="javascript:;">home</a>
+                </li>
+                <li>App settings</li>
+            </ul>
+        </div>
+        <div class="page_title">
+            <h2>App Settings</h2>
+        </div>
+        <div class="app_option_bar">
+            <h6>Applications</h6>
+            <div class="option_wrap">
+                <div class="app_sel">
+                    <label>Select Applications :</label>
+                    <select name="all_app_credentials" id="evt_all_app_credentials">
+                        {% for credential in app_credentials %}
+                            <option data-key="{{ credential.client_id }}"
+                            {% if credential.app_image %}
+                                data-image="{{ credential.app_image }}"
+                            {% else %}
+                                data-image="{% static 'backend/images/file.png' %}"
+                            {% endif %}
+                            data-secret="{{ credential.client_secret }}" data-webhook="{{ credential.redirect_uris }}" value={{ credential.id }}>{{ credential.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="app_id">
+                    <label>Application ID :</label>
+                    <div class="input-group">
+                        <input class="input-text" id="shw_app_key" name="app_key" placeholder="W3nuts.com" readonly>
+                        <button class="copy-btn" type="button">copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="seprator"></div>
+            <div class="app_detail_bar">
+                <h6>Application Details</h6>
+                <div class="app_row">
+                    <div class="app_col">
+                        <label>Applications</label>
+                        <input class="input-text" type="text"  id="shw_app_name" readonly placeholder="W3nuts">
+                    </div>
+                    <div class="app_col">
+                        <label>Webhook (optional)</label>
+                        <input class="input-text" type="text" id="shw_app_web_url" name="app_redirect_url">
+                    </div>
+                </div>
+                <div class="w3n_btn_box">
+                    <a href="javascript:;" class="w3n_btn">Read Docs</a>
+                </div>
+            </div>
+            <div class="seprator"></div>
+            <div class="app_file_wrap">
+                <div class="file_col">
+                    <h6>Preferred file format:</h6>
+                    <div class="box_wrap">
+                        <div class="browse_box">
+                            <div class="imgbox"><img id="app_profile_image_url" width="60" src="{% static 'backend/images/file.png' %}" alt="file"></div>
+                            <div class="file_detail">
+                                <div class="ratio">Dimensions: 100px x 100px</div>
+                                <ul>
+                                    <li>
+                                        <strong>Size:</strong>
+                                        <span>< 500KB</span>
+                                    </li>
+                                    <li>
+                                        <strong>Aspect Ratio:</strong>
+                                        <span>1:1</span>
+                                    </li>
+                                    <li>
+                                        <strong>Type:</strong>
+                                        <span>SVG</span>
+                                    </li>
+                                </ul>
+                                {% comment %} <form name="app_profile_form" id="app_profile_form" method="post" action="{% url 'app.fileupload' %}" enctype="multipart/form-data"> {% endcomment %}
+                                  
+                                    <span class="file-btn"><input type="file" name="app_image" id="app_image" class="evt_file_upload">Upload</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="file_col">
+                    <h6>Client Secrets</h6>
+                    <div class="box_wrap">
+                        <div class="key-box">
+                            <span id="shw_app_secret">53d1692265d3d6638e086c7b3bb5bbae97cedd76465ff1c013a47133e6840256</span>
+                        </div>
+                        <div class="act_wrap">
+                            <div class="more-text">Learn more about Entri authentication at: <a href="javascript:;">Read docs</a></div>
+                            <div class="act-btns">
+                                <a href="javascript:;"><img src="{% static 'backend/images/eye-icon.svg' %}" alt="image"></a>
+                                <a href="javascript:;"><img src="{% static 'backend/images/copy-icon.svg' %}" alt="image"></a>
+                                <a href="javascript:;"><img src="{% static 'backend/images/reload-icon.svg' %}" alt="image" id="evt_change_app_secret"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cta_buttons w3n_btn_box">
+                <div class="left_wrap">
+                    <a href="javascript:;" class="black_btn">Cancel</a>
+                    <input type="submit" value="Save" class="w3n_btn">
+                    {% comment %} <a href="javascript:;" class="w3n_btn" id="cmd_app_save">Save</a> {% endcomment %}
+                </div>
+                <div class="right_wrap">
+                    <a href="javascript:;" class="w3n_btn">Save & Preview</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
