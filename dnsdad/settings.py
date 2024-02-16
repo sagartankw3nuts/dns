@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-fkfjv08&h3(tw!mzo!3r2yk!o+v(z(y-3i@yyhf0ob!((n#wbp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://master--reliable-marigold-9eee46.netlify.app']
 
 
 # Application definition
