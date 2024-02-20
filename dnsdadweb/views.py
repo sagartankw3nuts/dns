@@ -14,6 +14,7 @@ from django.conf import settings
 from django.contrib import messages
 from datetime import datetime,timedelta
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from decorators import my_decorator
 
 def home(request):
     return render(request, 'home.html')
@@ -26,7 +27,7 @@ def dashboard(request):
     }
     return render(request, 'backend/dashboard.html', contxt)
 
-@login_required
+
 def appSettingCreate(request):
     
     app_credentials = AppCredentials.objects.filter(user_id=request.user.id)
@@ -151,7 +152,7 @@ def ajaxPostDomain(request):
         # The request is not an AJAX request
         return HttpResponseBadRequest('Bad Request: This endpoint requires an AJAX request')
 
-@login_required
+@my_decorator
 def appSettingStore(request):
     try:
         if request.method == 'POST':
