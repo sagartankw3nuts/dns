@@ -1,0 +1,7 @@
+.env
+
+/__pycache__
+/dnsdad/__pycache__
+
+/media
+/media/app_images/
