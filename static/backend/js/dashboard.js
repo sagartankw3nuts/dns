@@ -16,7 +16,8 @@ $(document).ready(function(){
         $('#shw_app_secret').text(_secret);
 
 
-        // var dataTable = $('#app_data').DataTable();
+        var dataTable_ = $('#app_data').DataTable();
+            dataTable_.destroy();
 
         new DataTable('#app_data', {
             ajax: {
@@ -32,7 +33,9 @@ $(document).ready(function(){
                 { data: 'status' }
             ],
             processing: true,
-            serverSide: true
+            serverSide: true,
+            // pageLength: 2, // Set the number of records per page to 2
+            // lengthMenu: [ [2, 5, 10, -1], [2, 5, 10, "All"] ], 
         });
         console.log('app_id', app_id);
     }).trigger('change');
