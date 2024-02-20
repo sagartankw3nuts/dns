@@ -4,13 +4,15 @@ from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import requests
-from .models import AppCredentials
-from .models import AppCredentialsToken
+from .models import AppCredentials, AppCredentialsToken
+from .models import SubscriptionPlan, UserSubscription
+from api.models import Domain
 import uuid
 import secrets
 import os
 from django.conf import settings
 from django.contrib import messages
+from datetime import datetime,timedelta
 
 def home(request):
     return render(request, 'home.html')
@@ -253,3 +255,52 @@ def appUpdateSecret(request):
 @login_required
 def billingCreate(request):
     return render(request, 'backend/billing.html')
+
+@login_required
+def get_data(request):
+    category_value = request.GET.get('category')
+
+    # Fetch data from the database based on the selected category
+    if category_value:
+        data = Domain.objects.filter(application_id=category_value) # Adjust the filtering condition and fields as needed
+        data_list = [{'name': item.name, 'provider': item.provider, 'status': item.status} for item in data]
+        return JsonResponse({'data': data_list}, safe=False)
+    else:
+        return JsonResponse({'error': 'Category value not provided'}, status=400)
+
+@login_required
+def planList(request):
+    planList = SubscriptionPlan.objects.all()
+    contxt = {
+        'planList' : planList
+    }
+    return render(request, 'backend/plan.html', contxt)
+
+@login_required
+def planStore(request, plan_id):
+    try:
+            isPlan = SubscriptionPlan.objects.get(id=plan_id)
+            if(isPlan and isPlan.id > 0):
+                # Get the current date
+                current_date = datetime.now()
+                # Add a certain number of months
+                number_of_months_to_add = isPlan.duration_months
+                future_date = current_date + timedelta(days=number_of_months_to_add * 30)
+
+                user_plan_save = UserSubscription(
+                    plan_id = plan_id, 
+                    start_date = current_date.date(),
+                    end_date = future_date,
+                    user_id = request.user.id,
+                    )
+                user_plan_save.save()
+
+                return redirect('/plan')
+            else:
+                return render(request, 'backend/404.html')
+
+            # response_data = {'message': 'Application added', 'status' : True,  'time': request.user.id}
+            # status_code = 200
+            # return JsonResponse(response_data, status=status_code)
+    except Exception as e:
+        return render(request, 'backend/404.html')

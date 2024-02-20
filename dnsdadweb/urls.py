@@ -10,4 +10,7 @@ urlpatterns = [
     path('app-update-secret-ajax', views.appUpdateSecret, name='app.updatesecret'),
     path('api-post-domain', views.ajaxPostDomain, name='ajax.postdomain'),
     path('billing', views.billingCreate, name='billing'),
+    path('plan', views.planList, name='plan.list'),
+    path('plan-store/<int:plan_id>/', views.planStore, name='plan.store'),
+    path('get_data', views.get_data, name='get_data'),
 ]

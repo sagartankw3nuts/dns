@@ -23,7 +23,7 @@ function setLoading() {
 function callbackfunc(url, domain, host, provider_name, data) {
 	if (url) {
 		$('.analyze_blk').find('li').addClass('active');
-		url = url + '&RANDOMTEXT=shm:0:' + encodeURIComponent(data) + '&IP=132.148.166.208'
+		url = url + '&RANDOMTEXT=shm:0:' + encodeURIComponent(data) + '&IP=172.105.47.42'
 		document.getElementById("domainconnect").innerHTML = `<a href='javascript:;'>${provider_name}</a>`
 		$('#2-btn-loader').show();
 		$('#2-btn-loader').attr('href', url);

@@ -15,7 +15,26 @@ $(document).ready(function(){
         $('#shw_app_key').val(_key);
         $('#shw_app_secret').text(_secret);
 
+
+        // var dataTable = $('#app_data').DataTable();
+
+        new DataTable('#app_data', {
+            ajax: {
+                url: '/get_data',
+                    type: 'GET',
+                    data: {
+                        'category': app_id
+                    },
+            },
+            columns: [
+                { data: 'name' },
+                { data: 'provider' },
+                { data: 'status' }
+            ],
+            processing: true,
+            serverSide: true
+        });
+        console.log('app_id', app_id);
     }).trigger('change');
 
-    console.log('app_id', app_id);
 })
