@@ -14,6 +14,7 @@ from django.conf import settings
 from django.contrib import messages
 from datetime import datetime,timedelta
 from django.db.models import Count
+from django.core.paginator import Paginator
 
 def home(request):
     return render(request, 'home.html')
@@ -259,11 +260,29 @@ def billingCreate(request):
 
 @login_required
 def dashboardDataTable(request):
+    
+    draw = int(request.GET.get('draw', 1)) 
+    start = int(request.GET.get('start', 0))
+    # length = int(request.GET.get('length', 10))  
+    length = 2
     category_value = request.GET.get('category')
     if category_value:
-        data = Domain.objects.filter(application_id=category_value)
-        data_list = [{'name': item.name, 'provider': item.provider, 'status': item.status} for item in data]
-        return JsonResponse({'data': data_list}, safe=False)
+        queryset = Domain.objects.filter(application_id=category_value)
+
+        paginator = Paginator(queryset, length)
+        page_number = (start // length) + 1
+        page = paginator.get_page(page_number)
+        
+        data = list(page.object_list.values('name', 'provider', 'status')) 
+
+        response = {
+            'draw': draw,
+            'recordsTotal': paginator.count,
+            'recordsFiltered': paginator.count,
+            'data': data,
+        }
+
+        return JsonResponse(response)
     else:
         return JsonResponse({'error': 'Category value not provided'}, status=400)
 

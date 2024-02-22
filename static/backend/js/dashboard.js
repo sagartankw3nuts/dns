@@ -17,10 +17,10 @@ $(document).ready(function(){
 
         ajaxChart(app_id)
 
-        var dataTable_ = $('#app_data').DataTable();
+        var dataTable_ = $('#example').DataTable();
             dataTable_.destroy();
 
-        new DataTable('#app_data', {
+        new DataTable('#example', {
             ajax: {
                 url: '/dashboard-table',
                     type: 'GET',
@@ -38,6 +38,10 @@ $(document).ready(function(){
             ],
             processing: true,
             serverSide: true,
+            lengthChange: false,
+            searching: false,
+            paging: true,
+        // "paging" : true
             // pageLength: 2, // Set the number of records per page to 2
             // lengthMenu: [ [2, 5, 10, -1], [2, 5, 10, "All"] ], 
         });
