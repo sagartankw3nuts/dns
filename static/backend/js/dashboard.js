@@ -51,7 +51,7 @@ $(document).ready(function(){
             query: search_val,
             app: app_val
         };
-        var baseUrl = 'export-csv/';
+        var baseUrl = 'domian-export-csv/';
         var url = baseUrl + '?' + $.param(params);
         window.location.href = url;
     });

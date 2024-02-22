@@ -14,5 +14,5 @@ urlpatterns = [
     path('plan-store/<int:plan_id>/', views.planStore, name='plan.store'),
     path('dashboard-table', views.dashboardDataTable, name='dashboard.datatable'),
     path('dashboard-chart', views.dashboardChart, name='dashboard.chart'),
-    path('export-csv/', views.export_csv, name='export_csv'),
+    path('domian-export-csv/', views.export_csv, name='export_csv'),
 ]
