@@ -13,8 +13,7 @@ import os
 from django.conf import settings
 from django.contrib import messages
 from datetime import datetime,timedelta
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from decorators import my_decorator
+from django.db.models import Count
 
 def home(request):
     return render(request, 'home.html')
@@ -27,7 +26,7 @@ def dashboard(request):
     }
     return render(request, 'backend/dashboard.html', contxt)
 
-
+@login_required
 def appSettingCreate(request):
     
     app_credentials = AppCredentials.objects.filter(user_id=request.user.id)
@@ -152,7 +151,7 @@ def ajaxPostDomain(request):
         # The request is not an AJAX request
         return HttpResponseBadRequest('Bad Request: This endpoint requires an AJAX request')
 
-@my_decorator
+@login_required
 def appSettingStore(request):
     try:
         if request.method == 'POST':
@@ -259,53 +258,30 @@ def billingCreate(request):
     return render(request, 'backend/billing.html')
 
 @login_required
-def get_data(request):
+def dashboardDataTable(request):
     category_value = request.GET.get('category')
-
-    # Fetch data from the database based on the selected category
     if category_value:
-        # data = Domain.objects.filter(application_id=category_value) 
-        # data_list = [{'name': item.name, 'provider': item.provider, 'status': item.status} for item in data]
-        # return JsonResponse({'data': data_list}, safe=False)
+        data = Domain.objects.filter(application_id=category_value)
+        data_list = [{'name': item.name, 'provider': item.provider, 'status': item.status} for item in data]
+        return JsonResponse({'data': data_list}, safe=False)
+    else:
+        return JsonResponse({'error': 'Category value not provided'}, status=400)
 
-        draw = int(request.POST.get('draw', 0))
-        start = int(request.POST.get('start', 0))
-        length = int(request.POST.get('length', 10))  # Set the default length to 2
-        search_value = request.POST.get('search[value]', '')
+@login_required
+def dashboardChart(request):
+    category_value = request.POST.get('category')
+    var_data_label = []
+    var_data_data = []
+    if category_value:
+        queryset = Domain.objects.filter(application_id=category_value).values('provider').annotate(count=Count('provider'))
+        if queryset.exists():
+            for domain in queryset:
+                var_data_label.append(domain['provider'])
+                var_data_data.append(domain['count'])
 
-        # Your filtering and sorting logic
-        filtered_data = Domain.objects.filter(application_id=category_value)
-        # total_records = Domain.objects.filter(application_id=category_value).count()
-        current_page = (start // length) + 1
-
-        paginator = Paginator(filtered_data, length)
-
-        try:
-            page_data = paginator.page(current_page)
-        except PageNotAnInteger:
-            page_data = paginator.page(1)
-            current_page = 1
-        except EmptyPage:
-            page_data = paginator.page(paginator.num_pages)
-            current_page = paginator.num_pages
-
-        data = [
-            {'name': item.name, 'provider': item.provider, 'status': item.status}
-            for item in page_data
-        ]
-
-        response = {
-            # 'draw': draw,
-            'recordsTotal': paginator.count,
-            'recordsFiltered': paginator.count,
-            'data': data,
-            # 'length': length,
-            # 'start': start,
-            # 'current_page': current_page,
-        }
-
-        return JsonResponse(response)
-
+            return JsonResponse({'pichart': {'label' : var_data_label, 'label_data' : var_data_data}, 'message': 'succes', 'status' : True})
+        else:
+            return JsonResponse({'pichart': [], 'message': 'data not found', 'status' : False})
     else:
         return JsonResponse({'error': 'Category value not provided'}, status=400)
 

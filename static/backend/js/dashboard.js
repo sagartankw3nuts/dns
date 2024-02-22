@@ -15,17 +15,21 @@ $(document).ready(function(){
         $('#shw_app_key').val(_key);
         $('#shw_app_secret').text(_secret);
 
+        ajaxChart(app_id)
 
         var dataTable_ = $('#app_data').DataTable();
             dataTable_.destroy();
 
         new DataTable('#app_data', {
             ajax: {
-                url: '/get_data',
+                url: '/dashboard-table',
                     type: 'GET',
                     data: {
                         'category': app_id
                     },
+            },
+            success: function (res) {
+                console.log('res', res);
             },
             columns: [
                 { data: 'name' },
@@ -40,4 +44,67 @@ $(document).ready(function(){
         console.log('app_id', app_id);
     }).trigger('change');
 
+
 })
+
+function ajaxChart(app_id) {
+    $.ajax({
+        type: "POST",
+        url: '/dashboard-chart',
+        data: {
+            'category': app_id
+        },
+        dataType: 'json',
+        cache: false,
+        success: function (res) {
+                initPieChart(res.pichart);
+        },
+        error: function (xhr) {
+            ajaxErrorMsg(xhr);
+        }
+    });
+}
+function initPieChart(res_pichart) {
+
+    const pichart_data_obj = {
+        labels: res_pichart.label,
+        datasets: [{
+            data: res_pichart.label_data,
+            backgroundColor: [
+                // 'rgb(13, 110, 253, 1.0)',
+                // 'rgb(13, 110, 253, 0.8)',
+                // 'rgb(13, 110, 253, 0.6)',
+                // 'rgb(13, 110, 253, 0.4)',
+                // 'rgb(13, 110, 253, 0.8)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    $('#div_pie_chart_deals').empty();
+
+    var pieChartElement = document.createElement("canvas");
+    pieChartElement.id = 'pie_chart_deals';
+    pieChartElement.width = '600px';
+    pieChartElement.height = '400px';
+
+    $('#div_pie_chart_deals').html(pieChartElement);
+
+    new Chart(document.getElementById('pie_chart_deals'), {
+        type: 'pie',
+        data: pichart_data_obj,
+        options: {
+            plugins: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            },
+            width: 300,
+            height: 300
+        }
+    });
+    pieChartElement.width = '600px';
+    pieChartElement.height = '400px';
+
+}
