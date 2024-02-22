@@ -263,12 +263,11 @@ def dashboardDataTable(request):
     
     draw = int(request.GET.get('draw', 1)) 
     start = int(request.GET.get('start', 0))
-    # length = int(request.GET.get('length', 10))  
-    length = 2
+    length = int(request.GET.get('length', 2))  
     category_value = request.GET.get('category')
+
     if category_value:
         queryset = Domain.objects.filter(application_id=category_value)
-
         paginator = Paginator(queryset, length)
         page_number = (start // length) + 1
         page = paginator.get_page(page_number)
@@ -276,10 +275,10 @@ def dashboardDataTable(request):
         data = list(page.object_list.values('name', 'provider', 'status')) 
 
         response = {
-            'draw': draw,
-            'recordsTotal': paginator.count,
-            'recordsFiltered': paginator.count,
             'data': data,
+            'draw': draw,
+            'recordsFiltered': paginator.count,
+            'recordsTotal': paginator.count,
         }
 
         return JsonResponse(response)

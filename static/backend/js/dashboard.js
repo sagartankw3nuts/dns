@@ -17,19 +17,16 @@ $(document).ready(function(){
 
         ajaxChart(app_id)
 
-        var dataTable_ = $('#example').DataTable();
+        var dataTable_ = $('#app_data_table').DataTable();
             dataTable_.destroy();
 
-        new DataTable('#example', {
+        new DataTable('#app_data_table', {
             ajax: {
                 url: '/dashboard-table',
                     type: 'GET',
                     data: {
                         'category': app_id
                     },
-            },
-            success: function (res) {
-                console.log('res', res);
             },
             columns: [
                 { data: 'name' },
@@ -38,17 +35,12 @@ $(document).ready(function(){
             ],
             processing: true,
             serverSide: true,
+            pageLength: 2,
             lengthChange: false,
             searching: false,
-            paging: true,
-        // "paging" : true
-            // pageLength: 2, // Set the number of records per page to 2
-            // lengthMenu: [ [2, 5, 10, -1], [2, 5, 10, "All"] ], 
+            paging: true
         });
-        console.log('app_id', app_id);
     }).trigger('change');
-
-
 })
 
 function ajaxChart(app_id) {
