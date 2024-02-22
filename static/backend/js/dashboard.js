@@ -37,7 +37,7 @@ $(document).ready(function(){
             serverSide: true,
             pageLength: 2,
             lengthChange: false,
-            searching: false,
+            // searching: false,
             paging: true
         });
     }).trigger('change');

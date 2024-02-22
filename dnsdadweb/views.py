@@ -15,7 +15,7 @@ from django.contrib import messages
 from datetime import datetime,timedelta
 from django.db.models import Count
 from django.core.paginator import Paginator
-
+from django.db.models import Q
 def home(request):
     return render(request, 'home.html')
 
@@ -265,9 +265,16 @@ def dashboardDataTable(request):
     start = int(request.GET.get('start', 0))
     length = int(request.GET.get('length', 2))  
     category_value = request.GET.get('category')
+    search_value = request.GET.get('search[value]', None)
 
     if category_value:
         queryset = Domain.objects.filter(application_id=category_value)
+
+        if search_value:
+            name_query = Q(name__icontains=search_value)
+            provider__icontains = Q(provider__icontains=search_value)
+            queryset = queryset.filter(name_query | provider__icontains)
+
         paginator = Paginator(queryset, length)
         page_number = (start // length) + 1
         page = paginator.get_page(page_number)
@@ -279,6 +286,7 @@ def dashboardDataTable(request):
             'draw': draw,
             'recordsFiltered': paginator.count,
             'recordsTotal': paginator.count,
+            'search_value': search_value
         }
 
         return JsonResponse(response)
