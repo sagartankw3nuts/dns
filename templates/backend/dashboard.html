@@ -22,7 +22,7 @@
         <div class="option_wrap">
             <div class="app_sel">
                 <label>Select Applications :</label>
-                <select name="all_app_credentials" id="evt_all_app_credentials">
+                <select name="all_app_credentials" id="evt_all_app_credentials_dashboard">
                     {% for credential in app_credentials %}
                         <option data-key="{{ credential.client_id }}"
                         {% if credential.app_image %}

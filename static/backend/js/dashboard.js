@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var app_id = false;
-    $('#evt_all_app_credentials').change(function (e) { 
+    $('#evt_all_app_credentials_dashboard').change(function (e) { 
         e.preventDefault();
 
         app_id = $(this).val();
@@ -45,7 +45,7 @@ $(document).ready(function(){
     $('#evt_export_all_domain').click(function (e) { 
         e.preventDefault();
         var search_val = $('input[type="search"]').val();
-        var app_val = $('#evt_all_app_credentials').val();
+        var app_val = $('#evt_all_app_credentials_dashboard').val();
         
         var params = {
             query: search_val,

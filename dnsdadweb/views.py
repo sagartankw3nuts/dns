@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -353,25 +353,30 @@ def planStore(request, plan_id):
     
 
 def export_csv(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="data.csv"'
+    try:
+        filename = f"{uuid.uuid4().hex}.csv"
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
 
-    writer = csv.writer(response)
-    # Write header row
-    writer.writerow(['Domain Name', 'Provider Name', 'Status'])
-    app_id = request.GET.get('app', None)
-    search_value = request.GET.get('query', None)
+        writer = csv.writer(response)
+        # Write header row
+        writer.writerow(['Domain Name', 'Provider Name', 'Status'])
 
-    if app_id:
-        queryset = Domain.objects.filter(application_id=app_id)
+        app_id = request.GET.get('app', None)
+        search_value = request.GET.get('query', None)
 
-        if search_value:
-            name_query = Q(name__icontains=search_value)
-            provider__icontains = Q(provider__icontains=search_value)
-            queryset = queryset.filter(name_query | provider__icontains)
-    
-    if(queryset):
-        for val in queryset:
-            writer.writerow([val.name, val.provider, val.status])
+        if app_id:
+            queryset = Domain.objects.filter(application_id=app_id)
 
-    return response
+            if search_value:
+                name_query = Q(name__icontains=search_value)
+                provider__icontains = Q(provider__icontains=search_value)
+                queryset = queryset.filter(name_query | provider__icontains)
+        
+        if(queryset):
+            for val in queryset:
+                writer.writerow([val.name, val.provider, val.status])
+
+        return response
+    except Exception as e:
+        return HttpResponseServerError("An error occurred while exporting the CSV file.")
