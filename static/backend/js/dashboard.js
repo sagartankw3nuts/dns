@@ -34,7 +34,7 @@ $(document).ready(function(){
             processing: true,
             serverSide: true
         });
-        console.log('app_id', app_id);
+        console.log('asasasas', app_id);
     }).trigger('change');
 
 })
