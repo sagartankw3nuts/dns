@@ -85,26 +85,22 @@ function initPieChart(res_pichart) {
 
     var pieChartElement = document.createElement("canvas");
     pieChartElement.id = 'pie_chart_deals';
-    pieChartElement.width = '600px';
-    pieChartElement.height = '400px';
-
     $('#div_pie_chart_deals').html(pieChartElement);
 
-    new Chart(document.getElementById('pie_chart_deals'), {
+    pie_chart = new Chart(document.getElementById('pie_chart_deals'), {
         type: 'pie',
         data: pichart_data_obj,
         options: {
             plugins: {
                 responsive: true,
+                // maintainAspectRatio: true,
                 legend: {
                     position: 'bottom',
                 },
             },
-            width: 300,
-            height: 300
         }
     });
-    pieChartElement.width = '600px';
-    pieChartElement.height = '400px';
 
+    pie_chart.canvas.parentNode.style.height = '400px';
+    pie_chart.canvas.parentNode.style.width = '400px';
 }
