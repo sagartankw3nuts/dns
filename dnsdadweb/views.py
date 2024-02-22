@@ -16,6 +16,9 @@ from datetime import datetime,timedelta
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.db.models import Q
+import csv
+
+
 def home(request):
     return render(request, 'home.html')
 
@@ -347,3 +350,28 @@ def planStore(request, plan_id):
             # return JsonResponse(response_data, status=status_code)
     except Exception as e:
         return render(request, 'backend/404.html')
+    
+
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="data.csv"'
+
+    writer = csv.writer(response)
+    # Write header row
+    writer.writerow(['Domain Name', 'Provider Name', 'Status'])
+    app_id = request.GET.get('app', None)
+    search_value = request.GET.get('query', None)
+
+    if app_id:
+        queryset = Domain.objects.filter(application_id=app_id)
+
+        if search_value:
+            name_query = Q(name__icontains=search_value)
+            provider__icontains = Q(provider__icontains=search_value)
+            queryset = queryset.filter(name_query | provider__icontains)
+    
+    if(queryset):
+        for val in queryset:
+            writer.writerow([val.name, val.provider, val.status])
+
+    return response

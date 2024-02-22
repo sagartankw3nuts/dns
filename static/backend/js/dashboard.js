@@ -41,6 +41,20 @@ $(document).ready(function(){
             paging: true
         });
     }).trigger('change');
+
+    $('#evt_export_all_domain').click(function (e) { 
+        e.preventDefault();
+        var search_val = $('input[type="search"]').val();
+        var app_val = $('#evt_all_app_credentials').val();
+        
+        var params = {
+            query: search_val,
+            app: app_val
+        };
+        var baseUrl = 'export-csv/';
+        var url = baseUrl + '?' + $.param(params);
+        window.location.href = url;
+    });
 })
 
 function ajaxChart(app_id) {
