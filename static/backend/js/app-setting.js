@@ -116,6 +116,24 @@ $(document).ready(function(){
         e.preventDefault();
         $('#app_form').submit();
     });
+
+    $('#shw_app_secret_copy').click(function (e) { 
+        e.preventDefault();
+        var temp = $("<input>");
+        $("body").append(temp);
+        temp.val($('#shw_app_secret').text()).select();
+        document.execCommand("copy");
+        temp.remove();
+    });
+
+    $('#shw_app_key_copy').click(function (e) { 
+        e.preventDefault();
+        var temp = $("<input>");
+        $("body").append(temp);
+        temp.val($('#shw_app_key').val()).select();
+        document.execCommand("copy");
+        temp.remove();
+    });
 })
 
 function ajaxErrorMsg(xhr) {

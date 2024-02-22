@@ -55,6 +55,15 @@ $(document).ready(function(){
         var url = baseUrl + '?' + $.param(params);
         window.location.href = url;
     });
+
+    $('#shw_app_key_copy').click(function (e) { 
+        e.preventDefault();
+        var temp = $("<input>");
+        $("body").append(temp);
+        temp.val($('#shw_app_key').val()).select();
+        document.execCommand("copy");
+        temp.remove();
+    });
 })
 
 function ajaxChart(app_id) {
@@ -74,8 +83,8 @@ function ajaxChart(app_id) {
         }
     });
 }
-function initPieChart(res_pichart) {
 
+function initPieChart(res_pichart) {
     const pichart_data_obj = {
         labels: res_pichart.label,
         datasets: [{
