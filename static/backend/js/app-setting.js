@@ -30,9 +30,9 @@ $(document).ready(function(){
                 success: function (res) {
                     $('#addapplicationmodal').modal('hide');
                     if(res.status == true) {
-
+                        toastr.success(res.message);
                     } else if(res.status == false) {
-                        
+                        toastr.error(res.message);
                     }
                 },
                 error: function (xhr) {
@@ -44,7 +44,6 @@ $(document).ready(function(){
 
     $('#evt_all_app_credentials').change(function (e) { 
         e.preventDefault();
-
         var _secret = $(this).find("option:selected").data("secret");
         var _key = $(this).find("option:selected").data("key");
         var _txt = $(this).find("option:selected").text();
@@ -102,8 +101,10 @@ $(document).ready(function(){
                 cache: false,
                 success: function (res) {
                     if (res.status == true) {
+                        toastr.success(res.message);
                         $('#shw_app_secret').text(res.data.client_secret);
                     } else {
+                        toastr.error(res.message);
                     }
                 },
                 error: function (xhr) {
@@ -124,6 +125,7 @@ $(document).ready(function(){
         temp.val($('#shw_app_secret').text()).select();
         document.execCommand("copy");
         temp.remove();
+        toastr.success('Copy success');
     });
 
     $('#shw_app_key_copy').click(function (e) { 
@@ -133,6 +135,7 @@ $(document).ready(function(){
         temp.val($('#shw_app_key').val()).select();
         document.execCommand("copy");
         temp.remove();
+        toastr.success('Copy success');
     });
 })
 

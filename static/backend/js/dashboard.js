@@ -6,14 +6,14 @@ $(document).ready(function(){
 
         app_id = $(this).val();
 
-        var _secret = $(this).find("option:selected").data("secret");
+        // var _secret = $(this).find("option:selected").data("secret");
         var _key = $(this).find("option:selected").data("key");
         var _txt = $(this).find("option:selected").text();
         var _image_url = $(this).find("option:selected").data('image');
         var _webhook = $(this).find("option:selected").data('webhook');
         
         $('#shw_app_key').val(_key);
-        $('#shw_app_secret').text(_secret);
+        // $('#shw_app_secret').text(_secret);
 
         ajaxChart(app_id)
 
@@ -56,13 +56,14 @@ $(document).ready(function(){
         window.location.href = url;
     });
 
-    $('#shw_app_key_copy').click(function (e) { 
+    $('#evt_key_cpy').click(function (e) { 
         e.preventDefault();
         var temp = $("<input>");
         $("body").append(temp);
         temp.val($('#shw_app_key').val()).select();
         document.execCommand("copy");
         temp.remove();
+        toastr.success('Copy success');
     });
 })
 
