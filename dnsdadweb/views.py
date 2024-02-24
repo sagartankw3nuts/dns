@@ -17,6 +17,7 @@ from django.db.models import Count
 from django.core.paginator import Paginator
 from django.db.models import Q
 import csv
+import urllib.parse
 
 
 def home(request):
@@ -133,6 +134,8 @@ def ajaxPostDomain(request):
                 response_data = {'message': 'something went wrong please try again', 'status' : False}
             
             resUrl = f"{urlSyncUX_value}/v2/domainTemplates/providers/{var_provider_id}/services/{var_service_id}/apply?domain={var_domain_name}&host={var_host_name}"
+        
+            cUrl = f"{resUrl}&RANDOMTEXT=shm:0:{urllib.parse.quote(xhr3.json())}&IP=172.105.47.42"
             
             response_data = {
                 'message' : 'success',
@@ -141,7 +144,8 @@ def ajaxPostDomain(request):
                 "domain" :var_domain_name,
                 "host" :var_host_name,
                 "provider_name" : providerName_value,
-                "data" : xhr3.json()
+                "data" : xhr3.json(),
+                'curl': cUrl
             }
 
             # Print the values
