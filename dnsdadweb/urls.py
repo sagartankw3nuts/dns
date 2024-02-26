@@ -12,5 +12,7 @@ urlpatterns = [
     path('billing', views.billingCreate, name='billing'),
     path('plan', views.planList, name='plan.list'),
     path('plan-store/<int:plan_id>/', views.planStore, name='plan.store'),
-    path('get_data', views.get_data, name='get_data'),
+    path('dashboard-table', views.dashboardDataTable, name='dashboard.datatable'),
+    path('dashboard-chart', views.dashboardChart, name='dashboard.chart'),
+    path('domian-export-csv/', views.export_csv, name='export_csv'),
 ]

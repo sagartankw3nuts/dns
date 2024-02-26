@@ -22,7 +22,7 @@
         <div class="option_wrap">
             <div class="app_sel">
                 <label>Select Applications :</label>
-                <select name="all_app_credentials" id="evt_all_app_credentials">
+                <select name="all_app_credentials" id="evt_all_app_credentials_dashboard">
                     {% for credential in app_credentials %}
                         <option data-key="{{ credential.client_id }}"
                         {% if credential.app_image %}
@@ -38,7 +38,7 @@
                 <label>Application ID :</label>
                 <div class="input-group">
                     <input class="input-text" id="shw_app_key"  readonly>
-                    <button class="copy-btn" type="button">copy</button>
+                    <button class="copy-btn" type="button" id="evt_key_cpy">copy</button>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
                         <div class="chart_heading">
                             <h6>Provider</h6>
                         </div>
-                        <div class="chart_image">
+                        <div class="chart_image" id="div_pie_chart_deals" >
                             <img src="{% static 'backend/images/chart-image-3.svg' %}" alt="">
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                 <div class="table_more_filter">
                     <div class="table_more_filter_inner">
                         <div class="table_more_filter_export">
-                            <a href="#">
+                            <a href="javascript:;" id="evt_export_all_domain">
                                 <i>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.7 11.3L18.44 5.55999M19.0001 8.36012V5.00012H15.6401M11.3 5.00012H9.9C6.4 5.00012 5 6.40012 5 9.90012V14.1001C5 17.6001 6.4 19.0001 9.9 19.0001H14.1C17.6 19.0001 19 17.6001 19 14.1001V12.7001" stroke="currentcolor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -154,21 +154,14 @@
                         </div>
                     </div>
                 </div>
-                <table id=" " class="table table-striped nowrap" style="width:100%">
+                <table id="app_data_table" class="table table-striped nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th >Domain</th>
-                            <th >Provider</th>
+                            <th>Domain</th>
+                            <th>Provider</th>
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td >Domain</td>
-                            <td >Provider</td>
-                            <td>Status</td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
