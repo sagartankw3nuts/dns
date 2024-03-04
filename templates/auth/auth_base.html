@@ -1,0 +1,40 @@
+{%load static %}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon"/>
+		<title>DNSDAD</title>
+		<!--Stylesheet-->
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+		<link href="{% static 'fonts/fonts.css' %}" rel="stylesheet">
+		<link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+		<link href="{% static 'css/style.css' %}" rel="stylesheet">
+		<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+		<!--Stylesheet-->
+	</head>
+	<body>
+		
+		{%block content%} 
+		{%endblock content%}
+
+			
+		{% csrf_token %}
+		<!--JavaScript-->
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+		<script>
+			$.ajaxSetup({
+					headers: {
+						'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()
+					}
+			});
+		</script>
+		<script src="{% static 'js/popper.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
+	</body>
+</html>

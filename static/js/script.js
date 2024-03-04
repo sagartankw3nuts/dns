@@ -20,16 +20,25 @@ jQuery(document).ready(function(){
 	
  
 
-	jQuery(".how_it_slider").slick({
-		 
-		slidesToShow: 3,
-		centerPadding: '0px',
-		infinite:true,
-		speed:1000,
-		dots:false,
-		arrows:false,
+	jQuery('.how_it_slider').owlCarousel({
+		loop:true,
+		margin:0,
+		smartSpeed:800,
 		autoplay:true,
-		autoplaySpeed:5000,
+		autoplayTimeout:5000,
+		nav:false,
+		dots:false,
+		responsive:{
+			0:{
+				items:1
+			},
+			992:{
+				items:2
+			},
+			1000:{
+				items:3
+			}
+		}
 	});
 
 	jQuery(".modal_main_step .w3n_btn_wrp a").click(function(e){

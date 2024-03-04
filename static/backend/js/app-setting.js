@@ -49,12 +49,14 @@ $(document).ready(function(){
         var _txt = $(this).find("option:selected").text();
         var _image_url = $(this).find("option:selected").data('image');
         var _webhook = $(this).find("option:selected").data('webhook');
-
+        
+        var full_img = `/medai/${_image_url}`
+        // alert(full_img);
         $('#shw_app_name').val(_txt);
         $('#shw_app_web_url').val(_webhook);
         $('#shw_app_key').val(_key);
         $('#shw_app_secret').text(_secret);
-        $('#app_profile_image_url').attr('src', _image_url);
+        $('#app_profile_image_url').attr('src',  );
 
     }).trigger('change');
 

@@ -32,9 +32,11 @@ def login(request):
 
 def register(request):
     if (request.method == 'POST'):
-        fname = request.POST.get('fname')
-        lname = request.POST.get('lname')
         username = request.POST.get('uname')
+        # fname = request.POST.get('fname')
+        # lname = request.POST.get('lname')
+        fname = username
+        lname = username
         email = request.POST.get('email')
         password = request.POST.get('password')
         cpassword = request.POST.get('cpassword')
