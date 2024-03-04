@@ -1,0 +1,36 @@
+{% extends 'auth/auth_base.html' %}
+{%load static %}
+
+{% block content %}
+<div class="login_wrap">
+    <div class="login_dtl">
+        <div class="login_wrapper">
+            <div class="login_img">
+                <div class="img_inner">
+                    <img src="{% static 'images/login-img.svg' %}" alt="dnsdad">
+                </div>
+            </div>
+            <div class="login_form check_email">
+                <div class="login_logo">
+                    <img src="{% static 'images/login-logo.svg' %}" alt="dnsdad">
+                </div>
+                <div class="fp_detail check_basket">
+                    <div class="fp_ttl">
+                        <a href="javascript:;" class="basket">
+                            <i><img src="{% static 'images/basket.svg' %}" alt="dnsdad"></i>
+                        </a>
+                        <h3>Check your Email!</h3>
+                        <p>We’ve sent you a link for reset password.</p>
+                    </div>
+                    <div class="btnbox">
+                        <a href="javascript:;" class="l_btn">Check Inbox</a>
+                    </div>
+                </div>
+                <div class="account_sign">
+                    <span>Didn’t have an account?<a href="{% url 'sign_in' %}">Login</a></span>
+                </div>
+            </div>
+        </div>	
+    </div>
+</div>
+{% endblock content %}

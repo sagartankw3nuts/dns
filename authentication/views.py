@@ -68,3 +68,20 @@ def logout(request):
         messages.success(request, 'You have been logged out')
         return redirect('/')
         # return redirect('login')
+
+def forgotPassword(request):
+    if (request.method == 'POST'):
+        email = request.POST['email']
+        if email:
+            if User.objects.filter(email=email).exists():
+                return redirect('check_email')
+            messages.error(request, 'Account is not active,please check your email')
+            return render(request, 'auth/forgot_password.html')
+        messages.error(request, 'Invalid credentials,try again')
+        return render(request, 'auth/forgot_password.html')
+    else:
+        return render(request, 'auth/forgot_password.html')
+    
+def checkEmail(request):
+    return render(request, 'auth/check_email.html')
+        
