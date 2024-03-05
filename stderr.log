@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home1/wwdartco/dns/passenger_wsgi.py", line 18, in <module>
+    from dns.wsgi import application
+ModuleNotFoundError: No module named 'dns'
+Traceback (most recent call last):
+  File "/home1/wwdartco/dns/passenger_wsgi.py", line 18, in <module>
+    from dns.wsgi import application
+ModuleNotFoundError: No module named 'dns'
+[UID:1421][268041] Child process with pid: 268072 was killed by signal: 15, core dumped: no
