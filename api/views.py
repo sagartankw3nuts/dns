@@ -104,6 +104,10 @@ def domainStore(request):
             urlSyncUX_value = xhr2.json().get('urlSyncUX', '')
             providerName_value = xhr2.json().get('providerName', '')
 
+            print(urlAPI_value)
+            print(urlSyncUX_value)
+            print(providerName_value)
+
             if(urlAPI_value == '' or urlSyncUX_value == '' or providerName_value == ''):
                 response_data = {'message': 'something went wrong please try again', 'status' : False}
             

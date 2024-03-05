@@ -1,16 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseServerError
 from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import requests
-from .models import AppCredentials
-from .models import AppCredentialsToken
+from .models import AppCredentials, AppCredentialsToken
+from .models import SubscriptionPlan, UserSubscription
+from api.models import Domain
 import uuid
 import secrets
 import os
 from django.conf import settings
 from django.contrib import messages
+from datetime import datetime,timedelta
+from django.db.models import Count
+from django.core.paginator import Paginator
+from django.db.models import Q
+import csv
+import urllib.parse
+
 
 def home(request):
     return render(request, 'home.html')
@@ -126,6 +134,8 @@ def ajaxPostDomain(request):
                 response_data = {'message': 'something went wrong please try again', 'status' : False}
             
             resUrl = f"{urlSyncUX_value}/v2/domainTemplates/providers/{var_provider_id}/services/{var_service_id}/apply?domain={var_domain_name}&host={var_host_name}"
+        
+            cUrl = f"{resUrl}&RANDOMTEXT=shm:0:{urllib.parse.quote(xhr3.json())}&IP=172.105.47.42"
             
             response_data = {
                 'message' : 'success',
@@ -134,7 +144,8 @@ def ajaxPostDomain(request):
                 "domain" :var_domain_name,
                 "host" :var_host_name,
                 "provider_name" : providerName_value,
-                "data" : xhr3.json()
+                "data" : xhr3.json(),
+                'curl': cUrl
             }
 
             # Print the values
@@ -253,3 +264,123 @@ def appUpdateSecret(request):
 @login_required
 def billingCreate(request):
     return render(request, 'backend/billing.html')
+
+@login_required
+def dashboardDataTable(request):
+    
+    draw = int(request.GET.get('draw', 1)) 
+    start = int(request.GET.get('start', 0))
+    length = int(request.GET.get('length', 2))  
+    category_value = request.GET.get('category')
+    search_value = request.GET.get('search[value]', None)
+
+    if category_value:
+        queryset = Domain.objects.filter(application_id=category_value)
+
+        if search_value:
+            name_query = Q(name__icontains=search_value)
+            provider__icontains = Q(provider__icontains=search_value)
+            queryset = queryset.filter(name_query | provider__icontains)
+
+        paginator = Paginator(queryset, length)
+        page_number = (start // length) + 1
+        page = paginator.get_page(page_number)
+        
+        data = list(page.object_list.values('name', 'provider', 'status')) 
+
+        response = {
+            'data': data,
+            'draw': draw,
+            'recordsFiltered': paginator.count,
+            'recordsTotal': paginator.count,
+            'search_value': search_value
+        }
+
+        return JsonResponse(response)
+    else:
+        return JsonResponse({'error': 'Category value not provided'}, status=400)
+
+@login_required
+def dashboardChart(request):
+    category_value = request.POST.get('category')
+    var_data_label = []
+    var_data_data = []
+    if category_value:
+        queryset = Domain.objects.filter(application_id=category_value).values('provider').annotate(count=Count('provider'))
+        if queryset.exists():
+            for domain in queryset:
+                var_data_label.append(domain['provider'])
+                var_data_data.append(domain['count'])
+
+            return JsonResponse({'pichart': {'label' : var_data_label, 'label_data' : var_data_data}, 'message': 'succes', 'status' : True})
+        else:
+            return JsonResponse({'pichart': [], 'message': 'data not found', 'status' : False})
+    else:
+        return JsonResponse({'error': 'Category value not provided'}, status=400)
+
+@login_required
+def planList(request):
+    planList = SubscriptionPlan.objects.all()
+    contxt = {
+        'planList' : planList
+    }
+    return render(request, 'backend/plan.html', contxt)
+
+@login_required
+def planStore(request, plan_id):
+    try:
+            isPlan = SubscriptionPlan.objects.get(id=plan_id)
+            if(isPlan and isPlan.id > 0):
+                # Get the current date
+                current_date = datetime.now()
+                # Add a certain number of months
+                number_of_months_to_add = isPlan.duration_months
+                future_date = current_date + timedelta(days=number_of_months_to_add * 30)
+
+                user_plan_save = UserSubscription(
+                    plan_id = plan_id, 
+                    start_date = current_date.date(),
+                    end_date = future_date,
+                    user_id = request.user.id,
+                    )
+                user_plan_save.save()
+
+                return redirect('/plan')
+            else:
+                return render(request, 'backend/404.html')
+
+            # response_data = {'message': 'Application added', 'status' : True,  'time': request.user.id}
+            # status_code = 200
+            # return JsonResponse(response_data, status=status_code)
+    except Exception as e:
+        return render(request, 'backend/404.html')
+    
+
+def export_csv(request):
+    try:
+        filename = f"{uuid.uuid4().hex}.csv"
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        writer = csv.writer(response)
+        # Write header row
+        writer.writerow(['Domain Name', 'Provider Name', 'Status'])
+
+        app_id = request.GET.get('app', None)
+        search_value = request.GET.get('query', None)
+
+        if app_id:
+            queryset = Domain.objects.filter(application_id=app_id)
+
+            if search_value:
+                name_query = Q(name__icontains=search_value)
+                provider__icontains = Q(provider__icontains=search_value)
+                queryset = queryset.filter(name_query | provider__icontains)
+        
+        if(queryset):
+            for val in queryset:
+                writer.writerow([val.name, val.provider, val.status])
+
+        return response
+    except Exception as e:
+        return HttpResponseServerError("An error occurred while exporting the CSV file.")

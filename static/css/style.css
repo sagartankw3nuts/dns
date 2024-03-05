@@ -249,13 +249,16 @@ ul.main-menu li a:hover { background-color: #0C183D; border-color: #45517B; colo
 .how_it_slider_box { width: 100%; padding: 0 16px; }
 .how_it_slider_img_box { width: 100%; position: relative; overflow: hidden; background: linear-gradient(to bottom,  rgba(20,31,66,1) 0%,rgba(13,24,59,1) 100%); border-radius: 20px; }
 .how_it_slider_img_box:after { content: ''; display: block; padding: 30.854% 50%; }
-.how_it_slider_img_box img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; opacity: 0; visibility: hidden; }
+.how_it_slider_img_box img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; visibility: hidden; }
 
-.how_it_slider_dtl { width: 100%; position: relative; padding: 48px 0 0 0; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; opacity: 0; visibility: hidden; }
+.how_it_slider_dtl { width: 100%; position: relative; padding: 48px 0 0 0; opacity: 0; visibility: hidden; }
 .how_it_slider_title { width: 100%; position: relative; }
 .how_it_slider_dtl p { font-size: 16px; line-height: 162.5%; letter-spacing: 0.32px; padding-right: 60px; }
+.how_it_slider .owl-stage-outer ,
 .how_it_slider .slick-list { overflow: visible; }
-.how_it_slider .slick-slide.slick-active .how_it_slider_img_box img { opacity: 1; visibility: visible; }
+.how_it_slider .owl-item.active .how_it_slider_img_box img ,
+.how_it_slider .owl-item.active .how_it_slider_dtl ,
+.how_it_slider .slick-slide.slick-active .how_it_slider_img_box img ,
 .how_it_slider .slick-slide.slick-active .how_it_slider_dtl { opacity: 1; visibility: visible; }
 
 .entri_sec { width: 100%; position: relative; padding: 96px 0; z-index: 2; }
@@ -346,7 +349,7 @@ footer:after { content: ''; position: absolute; top: 0; left: 0; width: 100%; he
 .modal_main_img { width: 100%; position: relative; }
 .modal_main_img .bottom_bg { width: 100%; opacity: 0.1; height: auto; }
 .modal_main_img .top_social { position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50% , -50%); -moz-transform: translate(-50% , -50%); -ms-transform: translate(-50% , -50%); transform: translate(-50% , -50%); z-index: 2; }
-.modal_main_dtl { width: 100%; position: relative; max-width: 395px; margin: 0 auto; padding: 48px 15px 45px; }
+.modal_main_dtl { width: 100%; position: relative; max-width: 395px; margin: 0 auto; padding: 48px 15px 32px; }
 .demomodal h5 { font-size: 24px; line-height: normal; color: #fff; font-family: 'Manrope-Bold'; letter-spacing: normal; text-align: center; }
 .demomodal h5 span { font-family: 'Manrope-Regular'; }
 .demomodal h5 strong { background: linear-gradient(97deg, #A578FF 0%, #FF83BD 31.25%, #FFBA6D 62.5%, #FBE9BE 100%);background-clip: text;-webkit-background-clip: text;-webkit-text-fill-color: transparent; font-weight: normal; font-family: 'Manrope-Bold'; }
@@ -361,7 +364,7 @@ footer:after { content: ''; position: absolute; top: 0; left: 0; width: 100%; he
 .modal_main_grp + .modal_main_grp { margin-top: 24px; }
 .demomodal .w3n_btn_wrp { padding: 48px 0 0 0; }
 .demomodal .w3n_btn_wrp a { width: 100%; height: 48px; }
-.modal_main_notice { width: 100%; position: relative; padding: 0 20px 13px; }
+.modal_main_notice { width: 100%; position: relative; padding: 13px 20px; background: rgba(0, 0, 0, 0.08); }
 .modal_main_notice p { font-size: 12px;line-height: 183.333%; color: #818EB2; text-align: center; letter-spacing: normal; font-family: 'Manrope-Medium'; }
 .modal_main_notice p a { color: #818EB2; text-decoration: underline; }
 .modal_main_notice p a:hover { color: #fff; }
@@ -430,6 +433,7 @@ footer:after { content: ''; position: absolute; top: 0; left: 0; width: 100%; he
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.00);
 }
 .search_filter_list li { width: 100%; position: relative; }
+.search_filter_list li + li { border-top: 1px solid #171E3C; }
 .search_filter_list li a { display: -ms-flexbox; display: flex; width: 100%; letter-spacing: normal; padding: 9px 18px 9px 9px; border-radius: 8px; }
 .search_filter_list li a .domain_list_box {display: -ms-flexbox; display: flex; align-items: center; align-content: center; justify-content: space-between; width: 100%; color: #fff; }
 .domain_list_left { display: -ms-flexbox; display: flex; align-items: center; padding: 0 10px 0 0; }
@@ -445,6 +449,9 @@ footer:after { content: ''; position: absolute; top: 0; left: 0; width: 100%; he
 /* Step 3 End */
 
 /* Step 4 Start */
+.step_form_modal_step.step_form_modal_step-4 { margin: 0; padding: 0 !important; max-width: 100% !important; }
+.step_form_modal_step-4 .instruction_blk { padding-bottom: 32px; }
+.step_form_modal_step-4 .step_form_modal_step-4_inner { width: 100%;max-width: 459px;padding-left: 15px !important;padding-right: 15px !important;margin: 0 auto; }
 .step_form_modal_step-4 .step_form_title { padding: 0 0 24px 0; }
 .bottom_login_into { width: 100%; position: relative; text-align: center; padding: 0 0 48px 0; }
 .bottom_login_into p { font-family: 'Manrope-SemiBold'; font-size: 14px;line-height: normal; letter-spacing: normal; color: #818EB2; }
@@ -478,21 +485,123 @@ footer:after { content: ''; position: absolute; top: 0; left: 0; width: 100%; he
 .instruction_link a:hover { opacity: 0.5; }
 /* Modal Style End */
 
-/*loader div*/
-.loader-div {
-	text-align: center;
-	padding-bottom: 7%;
+
+
+/* Hardik Css Login Page */
+.login_wrap {background-color: #121212; width: 100%; height: 100%; }
+.login_wrap .row {align-items: center;}
+.login_wrapper {display: flex; align-items: center; gap: 56px;}
+.login_wrap .login_dtl {position: relative; width: 100%; padding: 0 86px;}
+.login_wrap .login_dtl .login_img { flex:0 0 auto;width:66.66666667%; align-items: center; justify-content: center;}
+.login_wrap .login_dtl .login_img .img_inner {width: 100%; padding-right: 55px;}
+.login_wrap .login_dtl .login_img img {display: flex; width: 100%; max-width: 100%; height: auto; max-height: 100%;}
+.login_form {padding: 44px 0 167px; position: relative; flex:0 0 auto;width:31.6%;}
+.login_form_detail {padding-top: 168px; position: relative;}
+.login_ttl {padding: 0 0 44px;}
+.login_ttl h3{ padding: 0 0 24px;}
+.login_ttl p {color: #999999; font-size: 14px;}
+.login_inner{position: relative;}
+.login_inner .inner_form {display: flex; flex-direction: column;}
+.login_inner .inner_form:not(:last-child) {margin-bottom: 32px;}
+.login_inner .inner_form .elable{color: #FFF; font-weight: 500;}
+.login_inner .inner_form input {background: #121212; border-left: none; border-top: none; border-right: none; border-bottom: 1px solid #252526; color: #999999; margin-top: 16px; padding-bottom: 16px; font-size: 14px; width: 100%; padding-right: 40px;}
+.login_inner .inner_form input::placeholder{color: #999999;}
+.pswrap {display: flex; justify-content: space-between; align-items: center; position: relative;}
+.pswrap a{position: absolute; content: ''; right: 4px; top: 11px;}
+.check_pass {display: flex; justify-content: space-between; align-items: center; margin-top: 24px;}
+.check_pass .checkwrap {display: flex; gap: 9px; align-items: center;}
+.check_pass .checkwrap input {width: 18px; height: 18px; border-radius: 4px;}
+.check_pass .checkwrap span {color: #FFF; font-size: 14px;}
+.check_pass .checkwrap input:checked{background: linear-gradient(to right, rgba(0, 82, 204, 1) 0%, rgba(0, 153, 255, 1) 100%) !important;}
+.for_pass span {color: #0096FD; font-size: 14px;}
+.login_form_detail .btnbox {margin-top: 44px; position: relative;}
+.login_form_detail .btnbox .l_btn {
+	height: 44px; 
+	background: linear-gradient(to right, rgba(0, 82, 204, 1) 0%, rgba(0, 153, 255, 1) 100%); 
+	font-size: 14px; 
+	font-weight: 400; 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+	color: #FFF; 
+	position: relative;
+	z-index: 2;
+	width: 100%; border: none;
 }
-#div_content_error {
-	display: none;
+.login_form_detail .btnbox .l_btn::after{
+	position: absolute; content: ''; top: 0; left: 0; width: 100%; height: 100%;
+	background: linear-gradient(to right, rgba(0, 51, 128, 1) 0%, rgba(0, 92, 153, 1) 100%);
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	opacity: 0; visibility: hidden; z-index: -1;
 }
-#div_content_success {
-	display: none;
-}
-.form_error {
-	border: 1px solid rgb(217, 33, 44)
-}
-#domainconnect a {
-	color: #fff;
-	text-decoration: underline;
-}
+.login_form_detail .btnbox .l_btn:hover::after{opacity: 1; visibility: visible;}
+.or_wrap {display: flex; justify-content: space-between; align-items: center;  margin-top: 24px;}
+.or_wrap span{color: #FFF;}
+.or_wrap hr {height: 1px; width: 171px;}
+.two_btn {display: flex; justify-content: space-between; align-items: center; margin-top: 24px;}
+.two_btn .btn_box {display: flex; justify-content: center;align-items: center; }
+.two_btn .btn_box a {display: flex; justify-content: center; align-items: center; border: 1px solid #252526; height: 44px; padding: 0 24px; gap: 8px; font-size: 14px; color: #FFF;}
+.login_form .account_sign {position: absolute; bottom: 44px; left: 0; right: 0; text-align: center;}
+.login_form .account_sign span {color: #999999; font-size: 14px;}
+.login_form .account_sign a{color: #FFF;}
+
+
+.fp_detail {padding-top: 217px;}
+.fp_detail .fp_ttl .back_btn {display: flex; align-items: center; gap: 6px;}
+.fp_detail .fp_ttl .back_btn i {display: flex;}
+.fp_detail .fp_ttl .back_btn span {font-size: 14px; color: #FFF;}
+.fp_detail .fp_ttl h3 {padding-top: 44px;}
+.fp_detail .fp_ttl p {padding-top: 24px; font-size: 14px; color: #999999;}
+.fp_detail .login_inner {padding-top: 44px;}
+.fp_detail .btnbox {margin-top: 44px; position: relative;}
+.fp_detail .btnbox .l_btn {height: 44px; 
+	background: linear-gradient(to right, rgba(0, 82, 204, 1) 0%, rgba(0, 153, 255, 1) 100%); 
+	font-size: 14px; 
+	font-weight: 400; 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+	color: #FFF; 
+	position: relative;
+	z-index: 2;
+width: 100%; border: none;}
+.fp_detail .btnbox .l_btn::after{
+	position: absolute; content: ''; top: 0; left: 0; width: 100%; height: 100%;
+	background: linear-gradient(to right, rgba(0, 51, 128, 1) 0%, rgba(0, 92, 153, 1) 100%);
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	opacity: 0; visibility: hidden; z-index: -1;
+}	 
+.fp_detail .btnbox .l_btn:hover::after{opacity: 1; visibility: visible;}
+
+
+.fp_detail.check_basket {padding-top: 260px;}
+.basket {}
+.basket i img{background-color: #252526; padding: 19px 20px; border-radius: 50%;}
+
+.login_form.check_email {padding-bottom: 377px;}
+
+.signup_wrap {background-color: #121212; width: 100%; height: 100%;}
+.signup_wrapper {display: flex; align-items: center; gap: 56px;}
+.signup_dtl { position: relative; width: 100%; padding: 0 86px;}
+.signup_wrap .check_pass .checkwrap span {color: #999999;}
+.signup_wrap .check_pass .checkwrap span a {color: #FFF;}
+.signup_wrap .login_img {flex: 0 0 auto; width: 66.66666667%;}
+.signup_wrap .login_img img{ display: flex; width: 100%; max-width: 100%; height: auto; max-height: 100%;}
+.signup_wrap .login_img .img_inner {width: 100%; padding-right: 55px;}
+.signup_wrap .login_form {padding: 44px 0 167px; position: relative; flex: 0 0 auto; width: 31.6%;} 
+.error_icon {display: flex; align-items: center; justify-content: center; position: relative;}
+.error_icon .error {position: absolute; content: ''; right: 4px; top: 11px; display: block;}
+
+
+
+
+
+
+
+/* Hardik Css Login Page */

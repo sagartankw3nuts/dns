@@ -39,7 +39,7 @@
                     <label>Application ID :</label>
                     <div class="input-group">
                         <input class="input-text" id="shw_app_key" name="app_key" placeholder="W3nuts.com" readonly>
-                        <button class="copy-btn" type="button">copy</button>
+                        <button class="copy-btn" type="button" id="shw_app_key_copy">copy</button>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                             <div class="more-text">Learn more about Entri authentication at: <a href="javascript:;">Read docs</a></div>
                             <div class="act-btns">
                                 <a href="javascript:;"><img src="{% static 'backend/images/eye-icon.svg' %}" alt="image"></a>
-                                <a href="javascript:;"><img src="{% static 'backend/images/copy-icon.svg' %}" alt="image"></a>
+                                <a href="javascript:;" id="shw_app_secret_copy"><img src="{% static 'backend/images/copy-icon.svg' %}" alt="image"></a>
                                 <a href="javascript:;"><img src="{% static 'backend/images/reload-icon.svg' %}" alt="image" id="evt_change_app_secret"></a>
                             </div>
                         </div>

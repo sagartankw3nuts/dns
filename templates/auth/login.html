@@ -1,30 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    <title>Login</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    </head>
-    <body>
-        <div class="container mt-3">
-            {% include 'partials/_messages.html' %}
-            <form method="POST" action="{% url 'sign_in' %}" name="login" id="login">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="email" class="form-label">User Name</label>
-                    <input type="text" class="form-control" id="username" name="username">
+{% extends 'auth/auth_base.html' %}
+{%load static %}
+
+{% block content %}
+<div class="login_wrap">
+    <div class="login_dtl">
+        <div class="login_wrapper">
+            <div class="login_img">
+                <div class="img_inner">
+                    <img src="{% static 'images/login-img.svg' %}" alt="dnsdad">
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="login_form">
+                <div class="login_logo">
+                    <img src="{% static 'images/login-logo.svg' %}" alt="dnsdad">
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-        </div>
-    </body>
-</html>
+                <div class="login_form_detail">
+                    <div class="login_ttl">
+                        <h3>Login</h3>
+                        <p>Please fill in your email and password to sign in.</p>
+                    </div>
+                    <form method="POST" action="{% url 'sign_in' %}" name="login" id="login">
+                        {% csrf_token %}
+                            <div class="login_inner">
+                                <div class="inner_form">
+                                    <div class="inner_dtl">
+                                        <label for="username" class="elable">User Name</label>
+                                    </div>
+                                    <div class="error_icon">
+                                        <input type="text" name="username" id="username" autocomplete="off" placeholder="johnsmith@hotmail.com">
+                                        <i class="error"><img src="{% static 'images/error.svg' %}" alt="dnsdad"></i>
+                                    </div>
+                                </div>
+                                <div class="inner_form">
+                                    <label for="password" class="elable">Password</label>
+                                    <div class="pswrap">
+                                        <input type="password" name="password" id="password" placeholder=". . . . . . . . . .">
+                                        <a href="javascript:;"><img src="{% static 'images/showpassword.svg' %}" alt="dnsdad"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="check_pass">
+                                <div class="checkwrap">
+                                    <input type="checkbox">
+                                    <span>Remember me</span>
+                                </div>
+                                {% comment %} <div class="for_pass">
+                                    <a href="{% url 'forgot_password' %}"><span>Forgot Password?</span></a>
+                                </div> {% endcomment %}
+                            </div>
+                            <div class="btnbox">
+                                <button type="submit" class="l_btn">Login</button>
+                                {% comment %} <a href="javascript:;" class="l_btn">Login</a> {% endcomment %}
+                            </div>
+                            {% comment %} <div class="or_wrap">
+                                <hr>
+                                <span>OR</span>
+                                <hr>
+                            </div>
+                            <div class="two_btn">
+                                <div class="btn_box">
+                                    <a href="javascript:;">
+                                        <i><img src="{% static 'images/google.svg' %}" alt="dnsdad"></i>
+                                        <span>Login with Google</span>
+                                    </a>
+                                </div>
+                                <div class="btn_box">
+                                    <a href="javascript:;">Continue with SSO</a>
+                                </div>
+                            </div> {% endcomment %}
+                            
+                    </form>
+                </div>
+                <div class="account_sign">
+                    <span>Didn’t have an account?<a href="{% url 'sign_up' %}">Signup</a></span>
+                </div>
+            </div>
+        </div>	
+    </div>
+</div>
+{% endblock content %}

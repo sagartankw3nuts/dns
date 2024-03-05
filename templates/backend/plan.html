@@ -1,0 +1,89 @@
+{% extends 'backend/base.html' %}
+{%load static %}
+{% block content %}
+
+<div class="main_wraps">
+    <div class="billing_main">
+        <div class="breadcrumb_main">
+            <ul>
+                <li>
+                    <a href="#">home</a>
+                </li>
+                <li>Plan</li>
+            </ul>
+        </div>
+        <div class="page_title">
+            <h2>Plan</h2>
+        </div>
+        <div class="plan_block">
+            <span class="current">Current Plan</span>
+            <div class="plan_info">
+                <h6>Entri Connect Platform Fee - Startup Plan, Entri Connect Usage Fee, and Entri Secure Usage Fee</h6>
+                <h3>Price varies with usage</h3>
+                <p>Your plan renews on February 20, 2024.</p>
+            </div>
+            <div class="cta_wrap">
+                <div class="info_text">
+                    <p>Your next estimated payment will be $263.75</p>
+                    <i>
+                        <img src="{% static 'backend/images/info-icon.svg' %}" alt="image">
+                        <div class="modal_info_blk">
+                            <div class="modal_info_blk_inner">
+                                <div class="modal_info_title">
+                                    <h6>February 20 - March 20, 2024</h6>
+                                </div>
+                                <div class="modal_info_wrap">
+                                    <div class="modal_info_row">
+                                        <div class="modal_info_disc">Entri connect platform fee startup plan</div>
+                                        <div class="modal_info_price">$249.00</div>
+                                    </div>
+                                    <div class="modal_info_row">
+                                        <div class="modal_info_disc">Entri connect usage fee</div>
+                                        <div class="modal_info_price">$00.00</div>
+                                    </div>
+                                    <div class="modal_info_row">
+                                        <div class="modal_info_disc">Entri secure usage fee (Qty: 59) <p>(Qty: 59)</p></div>
+                                        <div class="modal_info_price">$14.75 <p>$0.25 each</p></div>
+                                    </div>
+                                    <div class="modal_info_row modal_info_row_total">
+                                        <div class="modal_info_disc">Total</div>
+                                        <div class="modal_info_price">$263.75</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </i>
+                </div>
+                <div class="w3n_btn_box">
+                    <a href="#" class="white_btn">Cancel Plan</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            {% for  plan in  planList%}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm" style="background-color:#121212">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">{{ plan.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">${{plan.price}} <small class="text-body-secondary fw-light"> {{plan.duration_months}}/mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                    </ul>
+                    <div class="white_btn text-center">
+                        <a  class="white_btn text-center btn bg-white" href="{% url 'plan.store' plan_id=plan.id %}">Add</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+</div>
+
+{% include 'backend/partials/_all_modal.html' %}
+{% endblock content %}

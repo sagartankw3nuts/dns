@@ -30,9 +30,9 @@ $(document).ready(function(){
                 success: function (res) {
                     $('#addapplicationmodal').modal('hide');
                     if(res.status == true) {
-
+                        toastr.success(res.message);
                     } else if(res.status == false) {
-                        
+                        toastr.error(res.message);
                     }
                 },
                 error: function (xhr) {
@@ -44,18 +44,19 @@ $(document).ready(function(){
 
     $('#evt_all_app_credentials').change(function (e) { 
         e.preventDefault();
-
         var _secret = $(this).find("option:selected").data("secret");
         var _key = $(this).find("option:selected").data("key");
         var _txt = $(this).find("option:selected").text();
         var _image_url = $(this).find("option:selected").data('image');
         var _webhook = $(this).find("option:selected").data('webhook');
-
+        
+        var full_img = `/medai/${_image_url}`
+        // alert(full_img);
         $('#shw_app_name').val(_txt);
         $('#shw_app_web_url').val(_webhook);
         $('#shw_app_key').val(_key);
         $('#shw_app_secret').text(_secret);
-        $('#app_profile_image_url').attr('src', _image_url);
+        $('#app_profile_image_url').attr('src',  );
 
     }).trigger('change');
 
@@ -102,8 +103,10 @@ $(document).ready(function(){
                 cache: false,
                 success: function (res) {
                     if (res.status == true) {
+                        toastr.success(res.message);
                         $('#shw_app_secret').text(res.data.client_secret);
                     } else {
+                        toastr.error(res.message);
                     }
                 },
                 error: function (xhr) {
@@ -115,6 +118,26 @@ $(document).ready(function(){
     $('#cmd_app_save').on('click', function (e) {
         e.preventDefault();
         $('#app_form').submit();
+    });
+
+    $('#shw_app_secret_copy').click(function (e) { 
+        e.preventDefault();
+        var temp = $("<input>");
+        $("body").append(temp);
+        temp.val($('#shw_app_secret').text()).select();
+        document.execCommand("copy");
+        temp.remove();
+        toastr.success('Copy success');
+    });
+
+    $('#shw_app_key_copy').click(function (e) { 
+        e.preventDefault();
+        var temp = $("<input>");
+        $("body").append(temp);
+        temp.val($('#shw_app_key').val()).select();
+        document.execCommand("copy");
+        temp.remove();
+        toastr.success('Copy success');
     });
 })
 
