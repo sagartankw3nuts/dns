@@ -126,3 +126,4 @@ jQuery(document).ready(function(){
 	});
 });
 /*============ Slick-Slider Function End ============*/
+
