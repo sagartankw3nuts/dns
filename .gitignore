@@ -1,6 +1,8 @@
 .env
 *.pyc
 
+.*pyc
+
 /__pycache__
 /dnsdad/__pycache__
 
