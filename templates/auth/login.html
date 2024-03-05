@@ -44,15 +44,15 @@
                                     <input type="checkbox">
                                     <span>Remember me</span>
                                 </div>
-                                <div class="for_pass">
+                                {% comment %} <div class="for_pass">
                                     <a href="{% url 'forgot_password' %}"><span>Forgot Password?</span></a>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                             <div class="btnbox">
                                 <button type="submit" class="l_btn">Login</button>
                                 {% comment %} <a href="javascript:;" class="l_btn">Login</a> {% endcomment %}
                             </div>
-                            <div class="or_wrap">
+                            {% comment %} <div class="or_wrap">
                                 <hr>
                                 <span>OR</span>
                                 <hr>
@@ -67,7 +67,7 @@
                                 <div class="btn_box">
                                     <a href="javascript:;">Continue with SSO</a>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                             
                     </form>
                 </div>

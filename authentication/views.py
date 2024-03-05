@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.contrib import auth
 from django.conf import settings
-
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 # Create your views here.
 def login(request):
@@ -74,6 +75,20 @@ def forgotPassword(request):
         email = request.POST['email']
         if email:
             if User.objects.filter(email=email).exists():
+
+                # subject = 'DNSDAD Reset Password'
+                # template_name = 'email/reset-password.html'
+                # context = {
+                #     'heading': 'This is a heading',
+                #     'message': 'This is a paragraph.',
+                # }
+                # from_email = 'sagartank.w3nuts@gmail.com'
+                # to_email = ['sagartank.w3nuts@gmail.com'] 
+
+                # html_message = render_to_string(template_name, context)
+
+                # send_mail(subject, '', from_email, to_email, html_message=html_message)
+
                 return redirect('check_email')
             messages.error(request, 'Account is not active,please check your email')
             return render(request, 'auth/forgot_password.html')
