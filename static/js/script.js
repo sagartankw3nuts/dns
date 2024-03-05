@@ -41,6 +41,7 @@ jQuery(document).ready(function(){
 		}
 	});
 
+
 	jQuery(".modal_main_step .w3n_btn_wrp a").click(function(e){
 		e.stopPropagation();
 		e.preventDefault();
