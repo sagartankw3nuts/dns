@@ -27,8 +27,9 @@ SECRET_KEY = 'django-insecure-fkfjv08&h3(tw!mzo!3r2yk!o+v(z(y-3i@yyhf0ob!((n#wbp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['w3dart.com', 'www.w3dart.com', 'http://w3dart.com']
 
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -86,10 +87,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dnsdadweb',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'wwdartco_dnsdad',
+        'USER': 'wwdartco_dnsdad',
+        'PASSWORD': 'g3v!#sG$nf+i',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -127,25 +128,41 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_DIRS = [BASE_DIR / 'static']
 
 LOGIN_URL = '/admin/login/'
 
 LOGIN_REDIRECT_URL = 'dashboard'
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MEDIA = 'media/'
+
 APP_FILE_ROOT = 'app_images/'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+#     os.path.join(BASE_DIR, "media")
+# ]
+
+
+
+
+# STATIC_URL = '/static/'
+
+# Additional directories to look for static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# Location for collected static files (for production)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
