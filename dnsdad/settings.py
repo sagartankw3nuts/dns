@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fkfjv08&h3(tw!mzo!3r2yk!o+v(z(y-3i@yyhf0ob!((n#wbp'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-#ALLOWED_HOSTS = ['w3dart.com', 'www.w3dart.com', 'http://w3dart.com']
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -86,12 +86,12 @@ DATABASES = {
     # }
 
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wwdartco_dnsdad',
-        'USER': 'wwdartco_dnsdad',
-        'PASSWORD': 'g3v!#sG$nf+i',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': os.getenv('DATABASE_URL'),
+        'NAME': os.getenv('DB_DATABASE'),
+        'USER': os.getenv('DB_USERNAME'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST':  os.getenv('DB_HOST'),
+        'PORT':  os.getenv('DB_PORT'),
     }
 }
 
@@ -153,8 +153,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "media")
 ]
 
-
-
-
-
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('MAIL_HOST')
+EMAIL_PORT =  os.getenv('MAIL_PORT')
+EMAIL_USE_TLS =  os.getenv('MAIL_ENCRYPTION')  # Or False if not using TLS
+EMAIL_HOST_USER = os.getenv('MAIL_USERNAME')
+EMAIL_HOST_PASSWORD = os.getenv('MAIL_PASSWORD')
+# DEFAULT_FROM_EMAIL = ''

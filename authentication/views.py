@@ -8,6 +8,13 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth import login
+from django.utils.translation import gettext_lazy as _
+
 # Create your views here.
 def login(request):
     if (request.method == 'POST'):
@@ -76,18 +83,18 @@ def forgotPassword(request):
         if email:
             if User.objects.filter(email=email).exists():
 
-                # subject = 'DNSDAD Reset Password'
-                # template_name = 'email/reset-password.html'
-                # context = {
-                #     'heading': 'This is a heading',
-                #     'message': 'This is a paragraph.',
-                # }
-                # from_email = 'sagartank.w3nuts@gmail.com'
-                # to_email = ['sagartank.w3nuts@gmail.com'] 
+                subject = 'DNSDAD Reset Password'
+                template_name = 'email/reset-password.html'
+                context = {
+                    'heading': 'This is a heading',
+                    'message': 'This is a paragraph.',
+                }
+                from_email = settings.EMAIL_HOST_USER
+                to_email = [email] 
 
-                # html_message = render_to_string(template_name, context)
+                html_message = render_to_string(template_name, context)
 
-                # send_mail(subject, '', from_email, to_email, html_message=html_message)
+                send_mail(subject, '', from_email, to_email, html_message=html_message)
 
                 return redirect('check_email')
             messages.error(request, 'Account is not active,please check your email')
@@ -96,7 +103,33 @@ def forgotPassword(request):
         return render(request, 'auth/forgot_password.html')
     else:
         return render(request, 'auth/forgot_password.html')
-    
+
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'auth/forgot_password.html'
+    email_template_name = 'auth/password_reset_email.html'
+    subject_template_name = 'auth/password_reset_subject.txt'
+    success_message = "We've emailed you instructions for setting your password, " \
+                        "if an account exists with the email you entered. You should receive them shortly." \
+                        " If you don't receive an email, " \
+                        "please make sure you've entered the address you registered with, and check your spam folder."
+    # success_url = reverse_lazy('users-home')
+
+class PasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'auth/password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+    post_reset_login = True
+    # extra_context = {'custom_message': _('Enter your new password.')}
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        if self.post_reset_login:
+            # Obtain the user from the form instance
+            # user = form.user
+            # Log the user in
+            return redirect(settings.LOGIN_REDIRECT_URL)
+
 def checkEmail(request):
     return render(request, 'auth/check_email.html')
         
