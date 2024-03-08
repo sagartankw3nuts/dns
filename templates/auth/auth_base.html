@@ -36,5 +36,45 @@
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'js/owl.carousel.min.js' %}"></script>
 		<script src="{% static 'js/script.js' %}"></script>
+		<script>
+			$(document).ready(function(){
+				$("#evt_password").click(function(){
+					var inputField = $('#password');
+					var currentType = inputField.attr('type');
+					if (currentType === 'text') {
+						inputField.attr('type', 'password');
+					} else {
+						inputField.attr('type', 'text');
+					}
+				});
+				$("#evt_cpassword").click(function(){
+					var inputField = $('#cpassword');
+					var currentType = inputField.attr('type');
+					if (currentType === 'text') {
+						inputField.attr('type', 'password');
+					} else {
+						inputField.attr('type', 'text');
+					}
+				});
+				$("#evt_new_password1").click(function(){
+					var inputField = $('#id_new_password1');
+					var currentType = inputField.attr('type');
+					if (currentType === 'text') {
+						inputField.attr('type', 'password');
+					} else {
+						inputField.attr('type', 'text');
+					}
+				});
+				$("#evt_new_password2").click(function(){
+					var inputField = $('#id_new_password2');
+					var currentType = inputField.attr('type');
+					if (currentType === 'text') {
+						inputField.attr('type', 'password');
+					} else {
+						inputField.attr('type', 'text');
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
