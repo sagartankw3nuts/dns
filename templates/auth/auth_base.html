@@ -31,6 +31,10 @@
 						'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()
 					}
 			});
+
+			var hide_pass ="{% static 'images/pass-hide.svg' %}";
+			var pass_show ="{% static 'images/pass-show.svg' %}";
+
 		</script>
 		<script src="{% static 'js/popper.min.js' %}"></script>
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -38,12 +42,15 @@
 		<script src="{% static 'js/script.js' %}"></script>
 		<script>
 			$(document).ready(function(){
+				
 				$("#evt_password").click(function(){
 					var inputField = $('#password');
 					var currentType = inputField.attr('type');
 					if (currentType === 'text') {
+						$(this).attr('src', hide_pass)
 						inputField.attr('type', 'password');
 					} else {
+						$(this).attr('src', pass_show)
 						inputField.attr('type', 'text');
 					}
 				});
@@ -51,8 +58,10 @@
 					var inputField = $('#cpassword');
 					var currentType = inputField.attr('type');
 					if (currentType === 'text') {
+						$(this).attr('src', hide_pass)
 						inputField.attr('type', 'password');
 					} else {
+						$(this).attr('src', pass_show)
 						inputField.attr('type', 'text');
 					}
 				});
@@ -60,8 +69,10 @@
 					var inputField = $('#id_new_password1');
 					var currentType = inputField.attr('type');
 					if (currentType === 'text') {
+						$(this).attr('src', hide_pass)
 						inputField.attr('type', 'password');
 					} else {
+						$(this).attr('src', pass_show)
 						inputField.attr('type', 'text');
 					}
 				});
@@ -69,8 +80,10 @@
 					var inputField = $('#id_new_password2');
 					var currentType = inputField.attr('type');
 					if (currentType === 'text') {
+						$(this).attr('src', hide_pass)
 						inputField.attr('type', 'password');
 					} else {
+						$(this).attr('src', pass_show)
 						inputField.attr('type', 'text');
 					}
 				});
