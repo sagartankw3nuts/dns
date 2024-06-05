@@ -15,4 +15,4 @@ import sys
 
 #!/usr/bin/env python
 
-from dns.wsgi import application
+from dnsdad.wsgi import application
